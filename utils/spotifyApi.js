@@ -1,8 +1,10 @@
-export default function getFromSpotifyApi(endpoint, token) {
+export default function getFromSpotifyApi(endpoint) {
     const SPOTIFY_URL_BASE = `https://api.spotify.com/v1`
-    return fetch(`${SPOTIFY_URL_BASE}/${endpoint}`, {
+    return fetch(`https://nuxt-spotify-playground.netlify.app/.netlify/functions/spotify-api`, {
+            body: JSON.stringify({endpoint}),
+            method: 'POST',
             headers: {
-                Authorization: `Bearer ${token}`
+                'Content-Type': 'application/json'
             }
         })
 }
