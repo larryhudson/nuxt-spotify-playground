@@ -30,7 +30,8 @@ export default {
         }
 
     },
-    props: ['token']
+    props: ['token'],
+    fetchOnServer: false
 }
 </script>
 
