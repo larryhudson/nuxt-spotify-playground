@@ -2,28 +2,11 @@
   <div>
   <LoginLink/>
 
-  <SpotifyTopArtists v-bind:token="accessToken" />
+  <SpotifyTopArtists />
   </div>
 
 </template>
 
 <script>
-import getTokenFromRequest from '../utils/getTokenFromRequest'
-
-export default {
-  asyncData({req, store}) {
-
-    if (req) {
-      const accessToken = getTokenFromRequest(req)
-      store.commit('setToken', accessToken)
-    }
-
-    
-    {
-      return {
-        accessToken: store.state.token
-      }
-    }
-  }
-}
+export default {}
 </script>

@@ -14,7 +14,6 @@
     <ol>
       <li v-for="artist in similarArtists" :key="artist.id">
           <img :src="artist.images[1].url" />
-
           <NuxtLink :to="`/artist/${artist.id}`">{{artist.name}}</NuxtLink>
       </li>
     </ol>
@@ -30,24 +29,19 @@ import fetchFromSpotifyApi from '../../utils/spotifyApi'
 
 export default {
   async asyncData({ store, route }) {
-    const token = store.state.token
 
-    console.log({ token })
     const artistId = route.params.id
 
     const artistData = await fetchFromSpotifyApi(
       `artists/${artistId}`,
-      token
     ).then((res) => res.json())
 
     const topTracks = await fetchFromSpotifyApi(
       `artists/${artistId}/top-tracks?market=AU`,
-      token
     ).then((res) => res.json())
 
     const similarArtists = await fetchFromSpotifyApi(
         `artists/${artistId}/related-artists`,
-        token
     ).then(res => res.json())
 
     return {

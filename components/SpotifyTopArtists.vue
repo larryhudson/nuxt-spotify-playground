@@ -23,14 +23,13 @@ export default {
         }
     },
     async fetch() {
-        const artistsResponse = await fetchFromSpotifyApi('me/top/artists', this.token).then(res => res.json())
+        const artistsResponse = await fetchFromSpotifyApi('me/top/artists').then(res => res.json())
 
         if (artistsResponse) {
             this.artists = artistsResponse.items
         }
 
     },
-    props: ['token'],
     fetchOnServer: false
 }
 </script>
