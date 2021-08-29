@@ -2,14 +2,7 @@
   <div>
     <h1>{{ artistData.name }}</h1>
     <h2>Top tracks</h2>
-    <ol>
-      <li v-for="track in topTracks" :key="track.id">
-          <img :src="track.album.images[1].url" />
-          <audio :src="track.preview_url" controls />
-
-          <a :href="track.uri">{{track.name}}</a>
-      </li>
-    </ol>
+    <ArtistTracks :artist="artistData.id" />
     <h2>Similar artists</h2>
     <ol>
       <li v-for="artist in similarArtists" :key="artist.id">
@@ -28,6 +21,7 @@
 import fetchFromSpotifyApi from '../../utils/spotifyApi'
 
 export default {
+
   async asyncData({ store, route }) {
 
     const artistId = route.params.id
@@ -50,7 +44,7 @@ export default {
       similarArtists: similarArtists.artists
     }
   },
-  fetchOnServer: false
+  fetchOnServer: false,
 }
 </script>
 

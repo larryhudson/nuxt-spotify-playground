@@ -9,6 +9,8 @@ export async function handler(event) {
 
     // read the cookie
 
+    console.log(event.headers.cookie)
+
     const siteCookies = cookie.parse(event.headers.cookie)
 
     if (!siteCookies.nuxt_spotify) {
@@ -23,9 +25,11 @@ export async function handler(event) {
     // get the endpoint
 
     const endpoint = JSON.parse(event.body).endpoint
+    const method = JSON.parse(event.body).method
 
 
     const spotifyResponse = await fetch(`${SPOTIFY_URL_BASE}/${endpoint}`, {
+        method,
         headers: {
             Authorization: `Bearer ${accessToken}`
         }
@@ -37,8 +41,23 @@ export async function handler(event) {
 
     console.log({spotifyResponse})
 
-    return {
-        statusCode: 200,
-        body: JSON.stringify(await spotifyResponse.json())
+    try {
+        const spotifyJson = await spotifyResponse.json()
+
+        if (spotifyJson) {
+            return {
+                statusCode: 200,
+                body: JSON.stringify(spotifyJson)
+            }
+        }
+    } catch {
+        return {
+            statusCode: 200,
+            body: 'OK'
+        }
     }
+
+
+
+
 }
